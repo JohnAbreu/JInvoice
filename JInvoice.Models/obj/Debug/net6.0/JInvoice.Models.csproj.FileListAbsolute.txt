@@ -1,0 +1,12 @@
+C:\Users\FISM\Desktop\Proyects\JINVOICE\JInvoice.Models\bin\Debug\net6.0\JInvoice.Models.deps.json
+C:\Users\FISM\Desktop\Proyects\JINVOICE\JInvoice.Models\bin\Debug\net6.0\JInvoice.Models.dll
+C:\Users\FISM\Desktop\Proyects\JINVOICE\JInvoice.Models\bin\Debug\net6.0\JInvoice.Models.pdb
+C:\Users\FISM\Desktop\Proyects\JINVOICE\JInvoice.Models\obj\Debug\net6.0\JInvoice.Models.csproj.AssemblyReference.cache
+C:\Users\FISM\Desktop\Proyects\JINVOICE\JInvoice.Models\obj\Debug\net6.0\JInvoice.Models.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\FISM\Desktop\Proyects\JINVOICE\JInvoice.Models\obj\Debug\net6.0\JInvoice.Models.AssemblyInfoInputs.cache
+C:\Users\FISM\Desktop\Proyects\JINVOICE\JInvoice.Models\obj\Debug\net6.0\JInvoice.Models.AssemblyInfo.cs
+C:\Users\FISM\Desktop\Proyects\JINVOICE\JInvoice.Models\obj\Debug\net6.0\JInvoice.Models.csproj.CoreCompileInputs.cache
+C:\Users\FISM\Desktop\Proyects\JINVOICE\JInvoice.Models\obj\Debug\net6.0\JInvoice.Models.dll
+C:\Users\FISM\Desktop\Proyects\JINVOICE\JInvoice.Models\obj\Debug\net6.0\refint\JInvoice.Models.dll
+C:\Users\FISM\Desktop\Proyects\JINVOICE\JInvoice.Models\obj\Debug\net6.0\JInvoice.Models.pdb
+C:\Users\FISM\Desktop\Proyects\JINVOICE\JInvoice.Models\obj\Debug\net6.0\ref\JInvoice.Models.dll

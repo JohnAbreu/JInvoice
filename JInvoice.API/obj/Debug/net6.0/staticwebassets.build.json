@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "nVX4gsOdHMI4fPXNgsKECYo+lgsrfFSvzzjFi+nsQDs=",
+  "Source": "JInvoice.API",
+  "BasePath": "_content/JInvoice.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

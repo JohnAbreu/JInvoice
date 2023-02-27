@@ -1,0 +1,12 @@
+C:\Users\FISM\Desktop\Proyects\JINVOICE\JInvoice.DAL\bin\Debug\net6.0\JInvoice.DAL.deps.json
+C:\Users\FISM\Desktop\Proyects\JINVOICE\JInvoice.DAL\bin\Debug\net6.0\JInvoice.DAL.dll
+C:\Users\FISM\Desktop\Proyects\JINVOICE\JInvoice.DAL\bin\Debug\net6.0\JInvoice.DAL.pdb
+C:\Users\FISM\Desktop\Proyects\JINVOICE\JInvoice.DAL\obj\Debug\net6.0\JInvoice.DAL.csproj.AssemblyReference.cache
+C:\Users\FISM\Desktop\Proyects\JINVOICE\JInvoice.DAL\obj\Debug\net6.0\JInvoice.DAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\FISM\Desktop\Proyects\JINVOICE\JInvoice.DAL\obj\Debug\net6.0\JInvoice.DAL.AssemblyInfoInputs.cache
+C:\Users\FISM\Desktop\Proyects\JINVOICE\JInvoice.DAL\obj\Debug\net6.0\JInvoice.DAL.AssemblyInfo.cs
+C:\Users\FISM\Desktop\Proyects\JINVOICE\JInvoice.DAL\obj\Debug\net6.0\JInvoice.DAL.csproj.CoreCompileInputs.cache
+C:\Users\FISM\Desktop\Proyects\JINVOICE\JInvoice.DAL\obj\Debug\net6.0\JInvoice.DAL.dll
+C:\Users\FISM\Desktop\Proyects\JINVOICE\JInvoice.DAL\obj\Debug\net6.0\refint\JInvoice.DAL.dll
+C:\Users\FISM\Desktop\Proyects\JINVOICE\JInvoice.DAL\obj\Debug\net6.0\JInvoice.DAL.pdb
+C:\Users\FISM\Desktop\Proyects\JINVOICE\JInvoice.DAL\obj\Debug\net6.0\ref\JInvoice.DAL.dll
