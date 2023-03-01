@@ -1,8 +1,8 @@
 ﻿namespace JInvoice.API.IdentityModels
 {
-    public class RolesType
+    static class RolesType
     {
-        public const string Customer = "Customer";
-        public const string Admin = "Admin";
+        public  const string Customer = "CUSTOMER";
+        public  const string Admin = "ADMIN";
     }
 }
