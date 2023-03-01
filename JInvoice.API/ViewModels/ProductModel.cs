@@ -56,6 +56,7 @@ namespace JInvoice.API.ViewModels
             product.Description = this.Description;
             product.Price = this.Price;
             product.IsActive = this.IsActive;
+            product.OnHand = this.OnHand;
         }
     }
 }

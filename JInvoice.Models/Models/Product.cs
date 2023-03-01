@@ -14,10 +14,14 @@ namespace JInvoice.Models.Models
         public decimal Price { get; set; }
         [Column(TypeName = "decimal(18,2)")]
         public decimal OnHand { get; set; }
-        [Column(TypeName = "nvarchar(20)")]
+        [Column(TypeName = "nvarchar(128)")]
         public string CreatedBy { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreatedOn { get; set; }
+        [Column(TypeName = "nvarchar(100)")]
+        public string? ImageCoverName { get; set; }
+        [Column(TypeName = "nvarchar(255)")]
+        public string? ImageCoverPath { get; set; }
         [ForeignKey("CategoryID")]
         public virtual Category Category { get; set; }
     }

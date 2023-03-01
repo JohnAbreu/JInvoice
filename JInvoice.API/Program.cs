@@ -1,4 +1,7 @@
 using JInvoice.API.IdentityModels;
+using JInvoice.API.Services;
+using JInvoice.DAL.Context;
+using JInvoice.DAL.Repository;
 using JInvoice.Models.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -16,7 +19,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 #region JInvoice Context
-
+builder.Services.AddDbContext<JInvoiceDB>(options =>
+        options.UseSqlServer(builder.Configuration.GetSection("ConnectionString").Value));
 #endregion
 
 #region Identity Configuration Services and Context
@@ -28,19 +32,22 @@ builder.Services.AddIdentityCore<ApplicationUser>()
                 .AddEntityFrameworkStores<UserContext>()
                 .AddSignInManager<SignInManager<ApplicationUser>>();
 
-builder.Services.Configure<IdentityOptions>(options => {
-options.Password.RequireDigit = true;
-options.Password.RequireNonAlphanumeric = false;
-options.Password.RequireLowercase = false;
-options.Password.RequireUppercase = false;
-options.Password.RequiredLength = 4;
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequireDigit = true;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequiredLength = 4;
 });
 #endregion
 
 #region Dependencies Inyections Services
-//builder.Services.AddTransient<IRepository<Category>, CategoryRepository>();
-//builder.Services.AddTransient<IRepository<Product>, ProductRepository>();
-//builder.Services.AddTransient<IProductUnitOfWork, ProductUnitOfWork>();
+builder.Services.AddTransient<IRepository<Category>, CategoryRepository>();
+builder.Services.AddTransient<IRepository<Product>, ProductRepository>();
+builder.Services.AddTransient<IProductUnitOfWork, ProductUnitOfWork>();
+builder.Services.AddTransient<CategoryService>();
+builder.Services.AddTransient<ProductService>();
 #endregion
 
 #region Jwt Authentication
@@ -77,6 +84,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

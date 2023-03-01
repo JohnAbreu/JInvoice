@@ -74,6 +74,7 @@ namespace JInvoice.API.Controllers
                         new Claim(identityOptions.ClaimsIdentity.RoleClaimType, role.FirstOrDefault())
                     }),
                         Expires = DateTime.Now.AddDays(1),
+                        NotBefore = DateTime.Now.AddMinutes(1),
                         SigningCredentials = new SigningCredentials(
                                 new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["secret"])),
                                                          SecurityAlgorithms.HmacSha256Signature)

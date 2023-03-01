@@ -21,6 +21,10 @@ namespace JInvoice.API.Services
                 {
                     products = products.Where(x => x.Name.ToLower().Contains(requestQuery.Name.ToLower()));
                 }
+                if (requestQuery.CategoryID != 0 && requestQuery.CategoryID != null)
+                {
+                    products = products.Where(x => x.CategoryID == requestQuery.CategoryID);
+                }
                 if (requestQuery.IsActive.HasValue)
                 {
                     products = products.Where(x => x.IsActive == requestQuery.IsActive.Value);

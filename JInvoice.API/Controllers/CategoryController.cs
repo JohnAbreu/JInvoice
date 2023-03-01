@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace JInvoice.API.Controllers
 {
     [ApiController]
-    [Route("categories")]
+    [Route("category")]
     [Authorize]
     public class CategoryController : ControllerBase
     {
@@ -90,43 +90,13 @@ namespace JInvoice.API.Controllers
 
             return response;
         }
-
-        [HttpGet("byname/{name}")]
-        public ActionResult<ResponseTyped<Category>> Get(string name)
-        {
-            var response = new ResponseTyped<Category>();
-            try
-            {
-                var result = _categoryRepository.Find(x => x.Name.ToLower()
-                                                                   .Contains(name.ToLower())
-                                                       ).FirstOrDefault();
-
-                response.IsSuccess = true;
-                response.Result = result;
-
-                if (result != null)
-                    response.StatusCode = StatusCodes.Status200OK;
-                else
-                    response.StatusCode = StatusCodes.Status204NoContent;
-            }
-            catch (System.Exception ex)
-            {
-                response.IsSuccess = false;
-                response.Result = null;
-
-                response.StatusCode = StatusCodes.Status500InternalServerError;
-                response.AddMessage(ex.Message);
-            }
-            return response;
-        }
-
         [HttpPost]
         public ActionResult<ResponseTyped<CategoryModel>> Post(CategoryModel category)
         {
             var response = new ResponseTyped<CategoryModel>();
             try
             {
-                category.CreatedBy = "admin";
+                //category.CreatedBy = "admin";
                 category.CreatedOn = DateTime.Now;
 
                 var newCategory = category.MapToDomain();
