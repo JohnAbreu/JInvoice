@@ -8,6 +8,8 @@ import { EditCategoryComponent } from './Category/edit-category/edit-category.co
 import { NewCategoryComponent } from './Category/new-category/new-category.component';
 import { SidebarComponent } from './Sidebar/sidebar.component';
 import { AppRoutingModule } from '../app-routing.module';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -23,6 +25,9 @@ import { AppRoutingModule } from '../app-routing.module';
   ],
   imports: [
     CommonModule,
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule
   ],
   exports:[

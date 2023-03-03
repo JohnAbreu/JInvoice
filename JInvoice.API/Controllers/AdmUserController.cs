@@ -86,6 +86,7 @@ namespace JInvoice.API.Controllers
 
                     dynamic authenticatedUser = new
                     {
+                        userID = user.Id,
                         token = token,
                         userName = user.UserName,
                         email = user.Email,

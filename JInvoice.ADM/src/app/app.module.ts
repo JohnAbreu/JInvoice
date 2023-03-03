@@ -12,6 +12,8 @@ import { ListCategoriesComponent } from './Pages/Category/list-categories/list-c
 import { EditCategoryComponent } from './Pages/Category/edit-category/edit-category.component';
 import { NewCategoryComponent } from './Pages/Category/new-category/new-category.component';
 import { SidebarComponent } from './Pages/Sidebar/sidebar.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +28,9 @@ import { SidebarComponent } from './Pages/Sidebar/sidebar.component';
     SidebarComponent
   ],
   imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
   ],

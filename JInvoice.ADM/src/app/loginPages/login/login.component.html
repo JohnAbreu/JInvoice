@@ -1,18 +1,18 @@
 <div class="col-sm-12">
-  <form>  
+  <form (ngsubmit)="login()">  
     <h2 class="text-center text-primary mt-2 mb-2">Login</h2>
       <div>
         <label for="userEmail">Email:</label>
-        <input type="text" id="userEmail" name="userEmail" required>
+        <input type="email" id="userEmail" name="userEmail" required>
       </div>
       <div>
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required>
       </div>
-      <div  class="alert alert-danger">
+      <div *ngIf="hasError" class="alert alert-danger">
             usuario o contraseña invalida
       </div>
-      <button type="submit" class="bg-primary"><a routerLink="/products">Login</a></button>
+      <button type="submit" class="bg-primary"><a routerLink="/Products">Login</a></button>
       <a routerLink="/registre">Registre</a> 
 </form>
 </div>
