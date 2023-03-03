@@ -14,6 +14,8 @@ import { NewCategoryComponent } from './Pages/Category/new-category/new-category
 import { SidebarComponent } from './Pages/Sidebar/sidebar.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor } from './auth/helpers/jwt.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,8 +35,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
+    BrowserModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [{provide:HTTP_INTERCEPTORS, useClass:JwtInterceptor, multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

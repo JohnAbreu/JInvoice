@@ -12,8 +12,8 @@
     <div class="form-group">
       <label for="name">Nombre:</label>
       <input type="text" class="form-control" id="name" placeholder="Nombre del producto" formControlName="name">
-      <div *ngIf="isSubmitted && getModelDataToForm.name.errors" class="invalid-feedback">
-      <div *ngIf="getModelDataToForm.name.errors.required">Dato requerido</div>
+      <div *ngIf="isSubmitted && this.productDetailsForm.controls['name'].errors" class="invalid-feedback">
+      <div *ngIf="this.productDetailsForm.controls['name'].errors.required">Dato requerido</div>
     </div>
     </div>
     <div class="form-group">
@@ -23,8 +23,8 @@
         name="categoryID" id="categoryID" formControlName="categoryID">
             <option selected value="">Seleccione</option>
         </select>
-        <div *ngIf="isSubmitted && getModelDataToForm.categoryID.errors" class="invalid-feedback">
-        <div *ngIf="getModelDataToForm.categoryID.errors.required">Dato requerido</div>
+        <div *ngIf="isSubmitted && this.productDetailsForm.controls['categoryID'].errors" class="invalid-feedback">
+        <div *ngIf="this.productDetailsForm.controls['categoryID'].errors.required">Dato requerido</div>
     </div>
     </div>
     <div class="form-group">
