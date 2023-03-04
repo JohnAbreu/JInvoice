@@ -1,3 +1,4 @@
+import { getLocaleDateFormat } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -21,6 +22,7 @@ export class NewProductComponent implements OnInit {
   public productDetailsForm: UntypedFormGroup;
   public loading: boolean = false;
   public isSubmitted: boolean = false;
+  public Required: boolean =false;
 
   constructor(private router: Router,
     private http: HttpService, 
@@ -28,12 +30,12 @@ export class NewProductComponent implements OnInit {
     private formBuilder: UntypedFormBuilder) { }
 
   ngOnInit(): void {
+    
     this.loadCategories();
-    this.newProduct(this.product);
-    this.authUser.currentUser.subscribe( ({userID}) => this.userLog = userID)
+    this.product = this.newProduct(this.product);
     this.productDetailsForm = this.formBuilder.group({
       name: ['',Validators.required],
-      categoryID: [0, Validators.required],
+      selectCategory: ['', Validators.required],
       description: [''],
       onHand: [false],
       price: [0.00]
@@ -41,10 +43,12 @@ export class NewProductComponent implements OnInit {
   }
 
   loadCategories() {
+    this.http.loadPararms();
     this.http.GetAll<APIResponse<Category[]>>('category')
     .subscribe((resp) => {
       this.Categories = resp.result;
-    });
+    },
+    (error) => console.log(error));
   }
 
   newProduct(product : Product):Product{
@@ -65,10 +69,14 @@ export class NewProductComponent implements OnInit {
   }
   setFormDataToModel(){
     this.product.name = this.productDetailsForm.controls['name'].value; 
-    this.product.categoryID = this.productDetailsForm.controls['categoryID'].value; 
+    this.product.categoryID = this.productDetailsForm.controls['selectCategory'].value; 
     this.product.description = this.productDetailsForm.controls['description'].value; 
-    this.product.onHand = this.productDetailsForm.controls['onHand'].value; 
+     if(this.productDetailsForm.controls['onHand'].value == true) this.product.onHand = 1;
+     else this.product.onHand = 0;
     this.product.price = this.productDetailsForm.controls['price'].value; 
+    this.authUser.currentUser.subscribe( ({userID}) => this.userLog = userID);
+    this.product.createdBy = this.userLog;
+    console.log(`obtejo productos`, this.product)
   }
   onFileSelected(event:any) {
     const file = event.target.files[0];
@@ -76,11 +84,14 @@ export class NewProductComponent implements OnInit {
     console.log(this.imagePath);
   }
   OnSubmitForm() {
+  
+
     this.isSubmitted = true;
     this.loading = true;
     if (this.productDetailsForm.invalid) {
+      this.Required =true;
       return;
-    }
+    }else this.Required =false;
     this.setFormDataToModel();
 
     this.http.Post('products', this.product)
@@ -88,7 +99,9 @@ export class NewProductComponent implements OnInit {
         console.log(resp);
         this.loading = false;
         this.router.navigate(['/Products']);
-      });
+      },
+      (error) => console.log(error)
+      );
     }
 
 }

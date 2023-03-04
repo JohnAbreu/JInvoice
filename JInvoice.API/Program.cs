@@ -50,6 +50,8 @@ builder.Services.AddTransient<CategoryService>();
 builder.Services.AddTransient<ProductService>();
 #endregion
 
+builder.Services.AddCors();
+
 #region Jwt Authentication
 
 var secret = Encoding.UTF8.GetBytes(builder.Configuration["secret"].ToString());
@@ -83,6 +85,12 @@ if (app.Environment.IsDevelopment())
     }
 
 app.UseHttpsRedirection();
+
+app.UseCors(builder => {
+    builder.WithOrigins("http://localhost:4200", "https://localhost:44361")
+           .AllowAnyHeader()
+           .AllowAnyMethod();
+});
 
 app.UseAuthentication();
 app.UseAuthorization();

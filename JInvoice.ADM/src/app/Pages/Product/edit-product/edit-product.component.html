@@ -1,5 +1,8 @@
 <div class="col-sm-6 m-auto">
 <form [formGroup]="productDetailsForm" (ngSubmit)="OnSubmitForm()">
+    <div *ngIf="Required" class="form-group alert alert-danger">
+        Datos requeridos: nombre, categoría
+     </div>
     <div class="form-group">
         <img [src]="imagePath" alt="Imagen">
         <input type="file" (change)="onFileSelected($event)">
@@ -12,27 +15,23 @@
     <div class="form-group">
       <label for="name">Nombre:</label>
       <input type="text" class="form-control" id="name" placeholder="Nombre del producto" formControlName="name">
-      <div *ngIf="isSubmitted && this.productDetailsForm.controls['name'].errors" class="invalid-feedback">
-      <div *ngIf="this.productDetailsForm.controls['name'].errors.required">Dato requerido</div>
-    </div>
     </div>
     <div class="form-group">
-        <label for="categoryID">Categoría:</label>
+        <label for="selectCategory">Categoría:</label>
         <select class="form-select form-select-sm" 
         aria-label=".form-select-sm example"
-        name="categoryID" id="categoryID" formControlName="categoryID">
+        name="selectCategory" id="selectCategory" formControlName="selectCategory">
             <option selected value="">Seleccione</option>
+            <option *ngFor="let category of Categories" [value]="category.categoryID">{{category.name}}</option>
         </select>
-        <div *ngIf="isSubmitted && this.productDetailsForm.controls['categoryID'].errors" class="invalid-feedback">
-        <div *ngIf="this.productDetailsForm.controls['categoryID'].errors.required">Dato requerido</div>
-    </div>
     </div>
     <div class="form-group">
-        <label for="decription">Precio:</label>
-        <textarea class="form-control" rows="3" id="decription" name="decription" id="description" formControlName="decription"></textarea>
+        <label for="description">Descripción:</label>
+        <textarea class="form-control" rows="3" id="description" name="description" id="description" 
+        formControlName="description" maxlength="255"></textarea>
     </div>
     <div class="form-group">
-        <label for="price">Descripción:</label>
+        <label for="price">Precio:</label>
         <input type="number" class="form-control" [value]="0.00" id="price" name="price" formControlName="price">
     </div>
     <div class="form-check">
@@ -41,7 +40,7 @@
           Producto a mano ?
         </label>
     </div>
-    <button type="submit" class="btn btn-success">Guardad</button>
+    <button type="submit" class="btn btn-success">Guardar</button>
     <button type="button" class="btn btn-primary" routerLink="/Products">Buscar</button>
     <button type="button" class="btn btn-danger" (click)="OnDelete()">Eliminar</button>
 </form>

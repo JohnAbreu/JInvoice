@@ -13,18 +13,18 @@ export class LoginComponent implements OnInit {
   public email:string = "";
   public password:string = "";
   public hasError:boolean = false;
+
   constructor(private authUser: AuthenticationService, private route: Router) { }
 
-  login():boolean{
-  this.authUser.login(this.email, this.password);
-  if(!this.authUser.isAuthenticated){
-     this.hasError = true;
-     return false;
+  login() {
+    console.log(`entro al metodo login, ${this.email}, ${this.password}`);
+    this.authUser.login(this.email, this.password);
   }
-  this.route.navigate(['/Products'])
-  return true;
-}
   ngOnInit(): void {
   }
 
+  welcome(){
+    console.log('before call ws.');
+    this.authUser.welcome();
+  }
 }

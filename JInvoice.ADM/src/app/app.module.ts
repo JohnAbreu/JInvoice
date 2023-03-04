@@ -16,6 +16,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './auth/helpers/jwt.interceptor';
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,9 +36,9 @@ import { JwtInterceptor } from './auth/helpers/jwt.interceptor';
     FormsModule,
     ReactiveFormsModule,
     BrowserModule,
-    AppRoutingModule,
-    BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastrModule.forRoot(),
+    AppRoutingModule
   ],
   providers: [{provide:HTTP_INTERCEPTORS, useClass:JwtInterceptor, multi:true}],
   bootstrap: [AppComponent]

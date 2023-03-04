@@ -6,7 +6,8 @@ export const environment = {
   production: false,
   hmr: false,
   //apiUrl: 'https://.azurewebsites.net',
-  apiUrl:'https://localhost:44361/'
+  apiUrl:'https://localhost:44361',
+  //apiUrl: 'http://localhost:27314'
 };
 
 /*

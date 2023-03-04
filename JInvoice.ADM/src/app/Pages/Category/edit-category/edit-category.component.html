@@ -1,1 +1,24 @@
-<p>edit-category works!</p>
+<div class="col-sm-6 m-auto">
+    <form [formGroup]="categoryDetailsForm" (ngSubmit)="OnSubmitForm()">
+        <div *ngIf="Required" class="form-group alert alert-danger">
+            Datos requeridos: nombre de la categoría
+         </div>
+        <div class="form-group">
+            <label for="categoryID">Codigo:</label>
+            <input type="number" class="form-control" id="productID" name="categoryID"
+            formControlName="categoryID" disabled>
+        </div>
+        <div class="form-group">
+          <label for="name">Nombre:</label>
+          <input type="text" class="form-control" id="name" placeholder="Nombre de la categoría" formControlName="name">
+        </div>
+        <div class="form-group">
+            <label for="description">Descripción:</label>
+            <textarea class="form-control" rows="3" id="description" name="description" id="description" 
+            formControlName="description" maxlength="255"></textarea>
+        </div>
+        <button type="submit" class="btn btn-success">Guardar</button>
+        <button type="button" class="btn btn-primary" routerLink="/Categories">Buscar</button>
+        <button type="button" class="btn btn-danger" (click)="OnDelete()">Eliminar</button>
+    </form>
+    </div>

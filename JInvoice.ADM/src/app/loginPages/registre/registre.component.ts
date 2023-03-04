@@ -15,7 +15,7 @@ export class RegistreComponent implements OnInit {
 
   public user: UserModel;
   public userDetailsForm: UntypedFormGroup;
-  public hasError: boolean = false;
+  public invalidPass: boolean = false;
   public loading: boolean = false;
   public confimrPass: string ="";
   public isSubmitted: boolean = false;
@@ -24,16 +24,17 @@ export class RegistreComponent implements OnInit {
     private http: HttpService, private router: Router) { }
     
   ngOnInit(): void {
-    this.initializeUser(this.user);
+    this.user = this.newUser(this.user);
     this.userDetailsForm = this.formBuilder.group({
-      fullName: [''],
-      email: [''],
-      userName: [''],
-      password: ['']
+      fullName: ['', Validators.required],
+      email: ['',Validators.required],
+      userName: ['',Validators.required],
+      password: ['',Validators.required],
+      Confirmpassword: ['',Validators.required]
     });
   }
-  initializeUser(newUser: UserModel) {
-    newUser= {
+  newUser(user: UserModel): UserModel {
+    return user= {
     fullName:'',
     userName: '',
     role:'Administrator',
@@ -49,12 +50,17 @@ export class RegistreComponent implements OnInit {
    this.user.email = this.userDetailsForm.controls['email'].value;
    this.user.userName = this.userDetailsForm.controls['userName'].value;
    this.user.password = this.userDetailsForm.controls['password'].value;
+   this.confimrPass = this.userDetailsForm.controls['Confirmpassword'].value;
    console.log(this.user);
   }
   validPassword():boolean{
     if(this.user.password === this.confimrPass) return true;
-    else return false;
-  }
+    else{
+    console.log(this.user.password, this.confimrPass)  
+    return false;
+    }
+}
+
   OnSubmitForm() {
     this.isSubmitted = true;
     this.loading = true;
@@ -62,7 +68,10 @@ export class RegistreComponent implements OnInit {
       return;
     }
     this.setFormDataToModel();
-    this.hasError =  this.validPassword();
+    if(!this.validPassword()){
+        this.invalidPass = true;
+        return;
+    }
     this.http.Post('AdmUser', this.user)
       .subscribe((resp) => {
         console.log(resp);
@@ -70,5 +79,4 @@ export class RegistreComponent implements OnInit {
         this.router.navigate(['/login']);
       });
     }
-
   }

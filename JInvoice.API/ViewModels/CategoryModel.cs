@@ -6,6 +6,7 @@ namespace JInvoice.API.ViewModels
     {
         public int CategoryID { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; } 
         public bool IsActive { get; set; }
         public string CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
@@ -15,6 +16,7 @@ namespace JInvoice.API.ViewModels
             return new Category
             {
                 Name = this.Name,
+                Description = this.Description,
                 CategoryID = this.CategoryID,
                 CreatedBy = this.CreatedBy,
                 CreatedOn = this.CreatedOn,
@@ -27,6 +29,7 @@ namespace JInvoice.API.ViewModels
             return new CategoryModel
             {
                 Name = category.Name,
+                Description = category.Description,
                 CategoryID = category.CategoryID,
                 CreatedBy = category.CreatedBy,
                 CreatedOn = category.CreatedOn,
@@ -37,6 +40,7 @@ namespace JInvoice.API.ViewModels
         public void MapToDomainForUpdate(Category category)
         {
             category.Name = this.Name;
+            category.Description = this.Description;
             category.CategoryID = this.CategoryID;
             category.IsActive = this.IsActive;
         }

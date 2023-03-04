@@ -72,10 +72,8 @@ namespace JInvoice.API.Controllers
                     response.IsSuccess = false;
                     response.StatusCode = StatusCodes.Status204NoContent;
                     response.Result = result;
-
                     return response;
                 }
-
                 response.IsSuccess = true;
                 response.Result = result;
                 response.StatusCode = StatusCodes.Status200OK;
@@ -87,18 +85,17 @@ namespace JInvoice.API.Controllers
                 response.StatusCode = StatusCodes.Status500InternalServerError;
                 response.AddMessage(ex.Message);
             }
-
             return response;
         }
 
         [HttpPost]
-        public ActionResult<ResponseTyped<ProductModel>> Post(ProductModel category)
+        public ActionResult<ResponseTyped<ProductModel>> Post(ProductModel product)
         {
             var response = new ResponseTyped<ProductModel>();
             try
             {
-                var newCategory = category.MapToDomain();
-                response.Result = category.MapToModel(_productUnitRepository.ProductRepository.Add(newCategory));
+                var newProduct = product.MapToDomain();
+                response.Result = product.MapToModel(_productUnitRepository.ProductRepository.Add(newProduct));
                 response.IsSuccess = true;
 
                 _productUnitRepository.ProductRepository.SaveChanges();

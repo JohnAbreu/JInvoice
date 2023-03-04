@@ -4,28 +4,25 @@
         <app-sidebar></app-sidebar>
     </div>
 
-    <div class="col">
-       <h3>Lista de Productos</h3>
+    <div class="col-9">
+       <h3>Catalogo de Productos</h3>
        <hr>
        <div class="col-sm-3">
-       <form>
+       <form [formGroup]="filterDetailsForm">
         <div class="form-group">
           <label for="name">Nombre:</label>
-          <input type="text" class="form-control" id="name">
+          <input type="text" class="form-control" id="name" placeholder="Nombre del producto" formControlName="name">
         </div>
         <div class="form-group">
-          <label for="categoryID">Categoría:</label>
+          <label for="selectCategory">Categoría:</label>
           <select class="form-select form-select-sm" 
           aria-label=".form-select-sm example"
-          name="categoryID" id="categoryID" formControlName="categoryID">
+          name="selectCategory" id="selectCategory" formControlName="selectCategory">
               <option selected value="">Seleccione</option>
-              <div *ngFor="let category of Categories">
-                <option [value]="category.categoryID">{{category.name}}</option>
-              </div>
-
+              <option *ngFor="let category of Categories" [value]="category.categoryID">{{category.name}}</option>
           </select>
-      </div>
-        <button type="submit" class="btn btn-primary">Buscar</button>
+        </div>  
+        <button type="submit" class="btn btn-primary" (click)="filter()">Buscar</button>
         <button type="submit" class="btn btn-success" routerLink="/Product">Nuevo Producto</button>
       </form>
       </div>
@@ -51,9 +48,6 @@
           </tbody>
         </table>
       </div>
-
-      
     </div>
-
 </div>
 

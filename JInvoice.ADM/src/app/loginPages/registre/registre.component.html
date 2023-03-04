@@ -1,36 +1,35 @@
 <div class="col-sm-12">
     <form [formGroup]="this.userDetailsForm" (ngSubmit)="OnSubmitForm()">  
       <h2 class="text-center text-primary mt-2 mb-2">Registre</h2>
+      <div class="form-group alert alert-warning" role="alert">
+        Todos los datos son requeridos...
+      </div>
         <div>
             <label for="fullName">Nombre Completo :</label>
-            <input type="text" id="fullName" name="fullName" required
-            formControlName="fullName" placeholder="nombre completo"
-            [ngClass]="{'is-invalid': isSubmitted && userDetailsForm.controls['fullName'].errors}" />
+            <input type="text" id="fullName" name="fullName"formControlName="fullName" 
+            placeholder="nombre completo"/>
         </div>
         <div>
             <label for="email">Email :</label>
-            <input type="text" id="email" name="email" required
-            formControlName="email" placeholder="correo electronico"
-            [ngClass]="{'is-invalid': isSubmitted && userDetailsForm.controls['email'].errors}" />
+            <input type="text" id="email" name="email"
+            formControlName="email" placeholder="correo electronico"/>
         </div>
         <div>
           <label for="userName">Username :</label>
-          <input type="text" id="userName" name="userName" required
-          formControlName="userName" placeholder="nombre de usuario"
-          [ngClass]="{'is-invalid': isSubmitted && userDetailsForm.controls['userName'].errors}" />
+          <input type="text" id="userName" name="userName"
+          formControlName="userName" placeholder="nombre de usuario"/>
         </div>
         <div>
           <label for="password"> Contraseña :</label>
-          <input type="password" id="password" name="password" required
-          formControlName="password" placeholder="escriba la contraseña"
-          [ngClass]="{'is-invalid': isSubmitted && userDetailsForm.controls['password'].errors}" />
+          <input type="password" id="password" name="password"
+          formControlName="password" placeholder="escriba la contraseña"/>
         </div>
         <div>
             <label for="Confirmpassword"> Confirmar :</label>
-            <input type="password" id="Confirmpassword" name="Confirmpassword" required
-            placeholder="nuevamente escriba la contraseña">
+            <input type="password" id="Confirmpassword" name="Confirmpassword"
+            formControlName="Confirmpassword" placeholder="nuevamente escriba la contraseña">
         </div>
-        <div  class="alert alert-danger">
+        <div *ngIf="invalidPass" class="alert alert-danger">
               confirmación de contraseña incorrecta
         </div>
         <button type="submit">Guardar</button>

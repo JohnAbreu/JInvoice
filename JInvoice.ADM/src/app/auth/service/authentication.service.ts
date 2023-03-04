@@ -8,6 +8,7 @@ import { User, Role } from 'app/auth/models';
 import { ToastrService } from 'ngx-toastr';
 import { AuthenticatedUser } from '../models/authenticatedUser';
 import { UserService } from './user.service';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -22,7 +23,7 @@ export class AuthenticationService {
    * @param {HttpClient} _http
    * @param {ToastrService} _toastrService
    */
-  constructor(private _http: HttpClient, private _toastrService: ToastrService) {
+  constructor(private _http: HttpClient, private _toastrService: ToastrService,private route : Router) {
     this.currentUserSubject = new BehaviorSubject<AuthenticatedUser>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
   }
@@ -48,6 +49,7 @@ export class AuthenticationService {
 
   get isAuthenticated(){
      let user = localStorage.getItem('currentUser');
+     console.log(`isAuthenticated ${user}`)
      if(user == undefined){
         return false;
      }
@@ -71,7 +73,31 @@ export class AuthenticationService {
                             console.log(user);
                             return user;
                         ;})
+                ).subscribe(
+                  p => {
+                    if (this.isAuthenticated) {
+                      console.log('autenticado');
+                      this.route.navigate(['/Products'])
+                      return true;
+                    }
+                    else 
+                    {
+                      console.log('no autenticado');
+                      return false;
+                    }
+                  },
+                  error => {console.log(error)}
                 );
+  }
+
+  welcome(){
+    return this._http.get(`${environment.apiUrl}/AdmUser`)
+                     .pipe(map(s =>{
+                      console.log(s);
+                    })).subscribe(
+                      p => {},
+                      error => {console.log(error)}
+                    );
   }
 
   /**

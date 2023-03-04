@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthenticationService } from 'app/auth/service';
 import { HttpService } from 'app/httpServices/http.service';
 import { APIResponse } from 'app/models/ApiResponse/ApiResponse.model';
 import { Category } from 'app/models/Catalog/category.model';
@@ -16,6 +19,7 @@ export class ListProductsComponent implements OnInit {
   public Products: Product[];
   public selectedCat : number = 0;
   public termino : string ="";
+  public filterDetailsForm: UntypedFormGroup;
 
   public collectionSize = 0;
   public positionPage = 1;
@@ -23,18 +27,24 @@ export class ListProductsComponent implements OnInit {
   public takePage = 10;
   public skipPage = 0
 
-  constructor(private http: HttpService) { }
+  constructor(private http: HttpService, private formBuilder: UntypedFormBuilder) { }
 
   ngOnInit(): void {
     this.loadCategories();
     this.loadData();
+    this.filterDetailsForm = this.formBuilder.group({
+      name: [''],
+      selectCategory: ['']
+    });
   }
 
   loadCategories() {
+    this.http.loadPararms();
     this.http.GetAll<APIResponse<Category[]>>('category')
     .subscribe((resp) => {
       this.Categories = resp.result;
-    });
+    },
+    (error) => console.log(error));
   }
 
   loadData(name: string = '',categoryId:number = 0, active: boolean = true) {
@@ -53,5 +63,10 @@ export class ListProductsComponent implements OnInit {
     this.skipPage = this.takePage * (position -1);
     this.loadData(this.termino,this.selectedCat);
   }
-
+  filter(){
+    let name = this.filterDetailsForm.controls['name'].value; 
+    let categoryID = this.filterDetailsForm.controls['selectCategory'].value;
+    console.log(`filtros para la busqueda: ${name} , ${categoryID}`)
+    this.loadData(name, categoryID);
+  }
 }

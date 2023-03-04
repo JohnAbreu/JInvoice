@@ -1,11 +1,39 @@
 <div class="row container mt-4">
-
-    <div class="col-3">
-        <app-sidebar></app-sidebar>
+  <div class="col-3">
+      <app-sidebar></app-sidebar>
+  </div>
+  <div class="col-9">
+     <h3>Lista de Categoría</h3>
+     <hr>
+     <div class="col-sm-3">
+     <form [formGroup]="filterDetailsForm">
+      <div class="form-group">
+        <label for="name">Nombre:</label>
+        <input type="text" class="form-control" id="name" placeholder="Nombre de la categoría" formControlName="name">
+      </div> 
+      <button type="submit" class="btn btn-primary" (click)="filter()">Buscar</button>
+      <button type="submit" class="btn btn-success" routerLink="/Category">Nuevo Producto</button>
+    </form>
     </div>
-
-    <div class="col">
-       <h3>Lista de Categorías</h3>
+     <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let category of Categories">
+            <td>{{category.name}}</td>
+            <td>{{category.description}}</td>
+            <td>
+              <a [routerLink]="['/Category', category.categoryID]">Ver...</a>
+          </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-
+  </div>
 </div>
