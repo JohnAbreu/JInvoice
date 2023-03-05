@@ -18,6 +18,8 @@ namespace JInvoice.Models.Models
         public string CreatedBy { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreatedOn { get; set; }
+        [Column(TypeName = "varbinary(max)")]
+        public byte[]? Image { get; set; }
         [Column(TypeName = "nvarchar(100)")]
         public string? ImageCoverName { get; set; }
         [Column(TypeName = "nvarchar(255)")]

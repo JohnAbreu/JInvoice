@@ -1,3 +1,4 @@
+import { useAnimation } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticatedUser } from 'app/auth/models/authenticatedUser';
@@ -12,12 +13,13 @@ export class LoginComponent implements OnInit {
 
   public email:string = "";
   public password:string = "";
-  public hasError:boolean = false;
+  
+ 
 
-  constructor(private authUser: AuthenticationService, private route: Router) { }
+  constructor(public authUser: AuthenticationService, private route: Router) { }
 
   login() {
-    console.log(`entro al metodo login, ${this.email}, ${this.password}`);
+    //console.log(`entro al metodo login, ${this.email}, ${this.password}`);
     this.authUser.login(this.email, this.password);
   }
   ngOnInit(): void {

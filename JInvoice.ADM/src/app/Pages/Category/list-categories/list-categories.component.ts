@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { AuthenticationService } from 'app/auth/service/authentication.service';
 import { HttpService } from 'app/httpServices/http.service';
 import { APIResponse } from 'app/models/ApiResponse/ApiResponse.model';
 import { Category } from 'app/models/Catalog/category.model';
@@ -21,9 +22,13 @@ export class ListCategoriesComponent implements OnInit {
   public takePage = 10;
   public skipPage = 0
 
-  constructor(private http: HttpService, private formBuilder: UntypedFormBuilder) { }
+  constructor(private http: HttpService, 
+    private formBuilder: UntypedFormBuilder,
+    private authUser : AuthenticationService) 
+    { }
 
   ngOnInit(): void {
+    //if(this.authUser.isAuthenticated === false) this.route.navigate(['/login']);
     this.loadData();
     this.filterDetailsForm = this.formBuilder.group({
       name: ['']

@@ -13,6 +13,8 @@ namespace JInvoice.API.ViewModels
         public string CreatedBy { get; set; } = string.Empty;
         public bool IsActive { get; set; }
         public DateTime CreatedOn { get; set; }
+        public string? ImageCoverName { get; set; }
+        public byte[]? Image { get; set; }
         public Category? Category { get; set; }
 
         public ProductModel MapToModel(Product product)

@@ -9,11 +9,12 @@
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" [(ngModel)]="password" required>
       </div>
-      <div *ngIf="hasError" class="alert alert-danger">
+      <div *ngIf="authUser.hasError" class="alert alert-danger">
             valide usuario o contraseña
       </div>
-      <button type="button" class="bg-primary" (click)="login()">Login</button>
-      <a routerLink="/registre">Registre</a> 
+      <button type="button" class="bg-primary" (click)="login()" [disabled]="authUser.loading" >Login</button>
+      <button type="button" class="bg-white" [disabled]="authUser.loading" >
+        <a routerLink="/registre" >Registre</a></button> 
 </form>
 </div>
 

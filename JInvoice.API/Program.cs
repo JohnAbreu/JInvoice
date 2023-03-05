@@ -90,6 +90,9 @@ app.UseCors(builder => {
     builder.WithOrigins("http://localhost:4200", "https://localhost:44361")
            .AllowAnyHeader()
            .AllowAnyMethod();
+    builder.WithOrigins("https://johnabreutechnicaltest.azurewebsites.net", "https://portaltest-johnabreu.azurewebsites.net")
+           .AllowAnyHeader()
+           .AllowAnyMethod();
 });
 
 app.UseAuthentication();

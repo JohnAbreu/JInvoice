@@ -1,6 +1,9 @@
 ﻿using JInvoice.API.HttpMessages;
+using JInvoice.API.ViewModels;
 using JInvoice.DAL.Repository;
 using JInvoice.Models.Models;
+using Microsoft.AspNetCore.Mvc;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace JInvoice.API.Services
 {
@@ -31,6 +34,16 @@ namespace JInvoice.API.Services
                 }
             }
             return products;
+        }
+
+        public async Task UploadImages(IFormFile fileImage, Product product)
+        {
+            using (var ms = new MemoryStream())
+            {
+                await fileImage.CopyToAsync(ms);
+                product.Image = ms.ToArray();
+                product.ImageCoverName = fileImage.FileName;
+            }
         }
     }
 }

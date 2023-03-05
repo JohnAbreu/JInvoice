@@ -22,12 +22,13 @@ export class EditCategoryComponent implements OnInit {
   public Required: boolean =false;
 
   constructor(private queryString: ActivatedRoute, 
-    private router: Router,
+    private route: Router,
     private http: HttpService,
     private authUser: AuthenticationService,
     private formBuilder: UntypedFormBuilder) {
    }
   ngOnInit(): void {
+    if(this.authUser.isAuthenticated === false) this.route.navigate(['/login']);
     this.queryString.params.subscribe(({id}) => {
       this.http.Get<APIResponse<Category>>('category',id).subscribe(
         (resp)=> { 
@@ -70,7 +71,7 @@ export class EditCategoryComponent implements OnInit {
       .subscribe((resp) => {
         console.log(resp);
         this.loading = false;
-        this.router.navigate(['/Categories']);
+        this.route.navigate(['/Categories']);
       },
       (error) => console.log(error));
     }
@@ -80,7 +81,7 @@ export class EditCategoryComponent implements OnInit {
       this.http.Delete('category', cagoryId)
       .subscribe((resp) => {
         this.loading = false;
-        this.router.navigate(['/Categories']);
+        this.route.navigate(['/Categories']);
       },
       (error) => console.log(error))
     }

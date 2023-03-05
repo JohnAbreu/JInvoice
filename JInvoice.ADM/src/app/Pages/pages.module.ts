@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CommonModule} from '@angular/common';
 import { ListProductsComponent } from './Product/list-products/list-products.component';
 import { EditProductComponent } from './Product/edit-product/edit-product.component';
 import { NewProductComponent } from './Product/new-product/new-product.component';
@@ -27,6 +28,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     BrowserModule,
     FormsModule,
+    NgbModule,
     ReactiveFormsModule,
     AppRoutingModule
   ],

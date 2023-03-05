@@ -1,11 +1,14 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'app/auth/service/authentication.service';
 import { HttpService } from 'app/httpServices/http.service';
 import { APIResponse } from 'app/models/ApiResponse/ApiResponse.model';
 import { Category } from 'app/models/Catalog/category.model';
 import { Product } from 'app/models/Catalog/product.model';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-edit-product',
@@ -15,21 +18,26 @@ import { Product } from 'app/models/Catalog/product.model';
 export class EditProductComponent implements OnInit {
 
   private userLog = "";
-  public imagePath ="";
   public product:Product;
   public Categories: Category[];
   public productDetailsForm: UntypedFormGroup;
   public loading: boolean = false;
   public isSubmitted: boolean = false;
   public Required: boolean =false;
-
+  
+  public img: string;
+  public archivos: any = []
   constructor(private queryString: ActivatedRoute, 
     private router: Router,
     private http: HttpService,
     private authUser: AuthenticationService,
-    private formBuilder: UntypedFormBuilder) {
+    private route: Router,
+    private formBuilder: UntypedFormBuilder,
+    private sanitizer: DomSanitizer,
+    private httpClient:HttpClient) {
    }
   ngOnInit(): void {
+    if(this.authUser.isAuthenticated === false) this.route.navigate(['/login']);
     this.loadCategories();
     this.queryString.params.subscribe(({id}) => {
       this.http.Get<APIResponse<Product>>('products',id).subscribe(
@@ -80,9 +88,47 @@ export class EditProductComponent implements OnInit {
     console.log(`obtejo productos`, this.product)
   }
   onFileSelected(event:any) {
-    const file = event.target.files[0];
-    this.imagePath =file;
-    console.log(this.imagePath);
+    const archivo = event.target.files[0]
+    this.extraerBase64(archivo).then((imagen: any) => {
+      this.img = imagen.base;
+      console.log(imagen);
+  });
+  this.archivos.push(archivo);
+}
+  extraerBase64 = async ($event: any) => new Promise((resolve, reject) => {
+    try {
+      const unsafeImg = window.URL.createObjectURL($event);
+      const image = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
+      const reader = new FileReader();
+      reader.readAsDataURL($event);
+      reader.onload = () => {
+        resolve({
+          base: reader.result
+        });
+      };
+      reader.onerror = error => {
+        resolve({
+          base: null
+        });
+      };
+
+    } catch (e) {
+      return null;
+    }
+  });
+  subirArchivo(): any {
+    this.loading = true;
+    const formData = new FormData();
+    this.archivos.forEach(archivo => {
+      formData.append('files', archivo)
+    })
+    this.httpClient.post(`${environment}/upload`, formData)
+      .subscribe(res => {
+        this.loading = false;
+        console.log('Respuesta del servidor', res);
+      }, 
+      (error) => console.log(error)
+      );
   }
   OnSubmitForm() {
     this.isSubmitted = true;

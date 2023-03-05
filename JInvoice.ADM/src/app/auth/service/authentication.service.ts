@@ -18,6 +18,8 @@ export class AuthenticationService {
   //private
   private currentUserSubject: BehaviorSubject<AuthenticatedUser>;
 
+  public hasError:boolean = false;
+  public loading:boolean = false;
   /**
    *
    * @param {HttpClient} _http
@@ -64,6 +66,7 @@ export class AuthenticationService {
    * @returns user
    */
   login(email: string, password: string) {
+    this.loading = true;
     return this._http
                .post<any>(`${environment.apiUrl}/AdmUser/login`, { email, password })
                .pipe(
@@ -78,15 +81,23 @@ export class AuthenticationService {
                     if (this.isAuthenticated) {
                       console.log('autenticado');
                       this.route.navigate(['/Products'])
+                      this.hasError = false;
+                      this.loading =false;
                       return true;
                     }
                     else 
                     {
                       console.log('no autenticado');
+                      this.hasError = true;
+                      this.loading =false;
                       return false;
                     }
                   },
-                  error => {console.log(error)}
+                  error => {
+                  console.log(error)
+                  this.hasError = true; 
+                  this.loading =false;
+                  return false;}
                 );
   }
 
@@ -105,10 +116,8 @@ export class AuthenticationService {
    *
    */
   logout() {
-    // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
     console.log('logged out');
-    // notify
     this.currentUserSubject.next(null);
   }
 }

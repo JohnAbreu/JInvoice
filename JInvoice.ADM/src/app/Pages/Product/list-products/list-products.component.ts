@@ -27,9 +27,13 @@ export class ListProductsComponent implements OnInit {
   public takePage = 10;
   public skipPage = 0
 
-  constructor(private http: HttpService, private formBuilder: UntypedFormBuilder) { }
+  constructor(private http: HttpService, 
+    private formBuilder: UntypedFormBuilder,
+    private authUser : AuthenticationService,
+    private route: Router) { }
 
   ngOnInit(): void {
+    if(this.authUser.isAuthenticated === false) this.route.navigate(['/login']);
     this.loadCategories();
     this.loadData();
     this.filterDetailsForm = this.formBuilder.group({
@@ -61,7 +65,7 @@ export class ListProductsComponent implements OnInit {
   onChanges(position)
   {
     this.skipPage = this.takePage * (position -1);
-    this.loadData(this.termino,this.selectedCat);
+    this.filter();
   }
   filter(){
     let name = this.filterDetailsForm.controls['name'].value; 

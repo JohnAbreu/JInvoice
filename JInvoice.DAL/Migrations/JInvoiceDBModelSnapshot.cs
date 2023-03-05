@@ -75,6 +75,9 @@ namespace JInvoice.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(225)");
 
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<string>("ImageCoverName")
                         .HasColumnType("nvarchar(100)");
 

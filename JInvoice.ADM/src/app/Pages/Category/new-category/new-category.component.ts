@@ -23,9 +23,11 @@ export class NewCategoryComponent implements OnInit {
   constructor(private router: Router,
     private http: HttpService, 
     private authUser: AuthenticationService,
+    private route: Router,
     private formBuilder: UntypedFormBuilder) { }
 
   ngOnInit(): void {
+    if(this.authUser.isAuthenticated === false) this.route.navigate(['/login']);
     this.category = this.newCategory(this.category);
     this.categoryDetailsForm = this.formBuilder.group({
       name: ['',Validators.required],
@@ -49,8 +51,9 @@ export class NewCategoryComponent implements OnInit {
   setFormDataToModel(){
     this.category.name = this.categoryDetailsForm.controls['name'].value; 
     this.category.description = this.categoryDetailsForm.controls['description'].value; 
-    this.authUser.currentUser.subscribe( ({userID}) => this.userLog = userID);
-    this.category.createdBy = this.userLog;
+    //this.authUser.currentUser.subscribe( ({userID}) => this.userLog = userID);
+    let user = JSON.parse(localStorage.getItem('currentUser'));
+    this.category.createdBy = user.userID;
     console.log(`obtejo productos`, this.category)
   }
   onFileSelected(event:any) {
