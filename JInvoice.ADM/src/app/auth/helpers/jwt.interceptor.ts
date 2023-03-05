@@ -22,24 +22,23 @@ export class JwtInterceptor implements HttpInterceptor {
     
       const currentUser = this._authenticationService.currentUserValue;
       let user = JSON.parse(localStorage.getItem('currentUser'));
-
-      
-      if (currentUser == undefined)
-      return next.handle(request);
+            
+      if (user == undefined)
+        return next.handle(request);
       
       console.log(user.token);
-      const isLoggedIn = currentUser && currentUser.token;
-      const isApiUrl = request.url.startsWith(environment.apiUrl);
 
-      if (isLoggedIn && isApiUrl) {
-        console.log(`user token : ${currentUser.token}`);
+      //const isLoggedIn = currentUser && currentUser.token;
+      const isLoginUrl = 'AdmUser/login'; // request.url.startsWith(environment.apiUrl);
 
-        request = request.clone({
-          setHeaders: {
-            Authorization: `Bearer ${currentUser.token}`
-          }
+      if (request.url.indexOf(isLoginUrl) == -1) {
+          console.log(`user token : ${user.token}`);
+          request = request.clone({
+            setHeaders: {
+              Authorization: `Bearer ${user.token}`
+            }
         });
-      }  
+      }
     return next.handle(request);
   }
 }

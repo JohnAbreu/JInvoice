@@ -51,7 +51,7 @@ export class AuthenticationService {
 
   get isAuthenticated(){
      let user = localStorage.getItem('currentUser');
-     console.log(`isAuthenticated ${user}`)
+     // console.log(`isAuthenticated ${user}`)
      if(user == undefined){
         return false;
      }
@@ -69,15 +69,10 @@ export class AuthenticationService {
     this.loading = true;
     return this._http
                .post<any>(`${environment.apiUrl}/AdmUser/login`, { email, password })
-               .pipe(
-                  map(user => 
-                        { 
-                            localStorage.setItem('currentUser',JSON.stringify(user.authenticatedUser));
-                            console.log(user);
-                            return user;
-                        ;})
-                ).subscribe(
-                  p => {
+               .subscribe(
+                  (resp) => {
+                    console.log(resp.authenticatedUser)
+                    localStorage.setItem('currentUser',JSON.stringify(resp.authenticatedUser));
                     if (this.isAuthenticated) {
                       console.log('autenticado');
                       this.route.navigate(['/Products'])
